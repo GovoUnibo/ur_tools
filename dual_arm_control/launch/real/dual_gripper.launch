@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="activate_1" default="false"/>
+    <arg name="activate_2" default="false"/>
+
+    <arg name="gripper1_name" default="left"/>
+    <arg name="gripper2_name" default="right"/>
+
+    <arg name="gripper1_ip" default="192.168.0.102"/>
+    <arg name="gripper2_ip" default="192.168.0.103"/>
+
+    <group if ="$(arg activate_1)">
+        <include file="$(find robotiq_control)/launch/TcpIp_ActionServer.launch">
+            <arg name="gripper_name" value="$(arg gripper1_name)"/>
+            <arg name="ip" value="$(arg gripper1_ip)"/>
+        </include>
+    </group>
+
+    <group if ="$(arg activate_2)">
+        <include file="$(find robotiq_control)/launch/TcpIp_ActionServer.launch">
+            <arg name="gripper_name" value="$(arg gripper2_name)"/>
+            <arg name="ip" value="$(arg gripper2_ip)"/>
+        </include>
+    </group>
+        
+
+
+</launch>
