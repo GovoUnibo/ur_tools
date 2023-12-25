@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<launch>
+        <arg name = "robot1_name"   default = "substitute1"/>
+        <arg name = "robot2_name"   default = "substitute2"/>
+        
+        <arg name = "finger1" default = "tactile2x6.STL"/>
+        <arg name = "finger2" default = "tactile2x6.STL"/>
+
+        <arg name = "robot1_x_pos" default = "1.0"/>
+        <arg name = "robot1_y_pos" default = "-0.0"/>
+        <arg name = "robot1_z_pos" default = "0.0"/>
+        <arg name = "robot1_roll"  default = "0.0"/>
+        <arg name = "robot1_pitch" default = "0.0"/>
+        <arg name = "robot1_yaw"   default = "0.0"/>
+
+        <arg name = "robot2_x_pos" default = "0.0"/>
+        <arg name = "robot2_y_pos" default = "0.0"/>
+        <arg name = "robot2_z_pos" default = "0.0"/>
+        <arg name = "robot2_roll"  default = "0.0"/>
+        <arg name = "robot2_pitch" default = "0.0"/>
+        <arg name = "robot2_yaw"   default = "0.0"/>
+
+        <arg name="simulation" default="false"/>
+        <arg name="robot1_active" default="true"/>
+        <arg name="robot2_active" default="true"/>
+
+    
+        
+
+
+    <param name="robot_description" command="$(find xacro)/xacro $(find dual_arm_bringup)/xacro/dual_ur_robotiq.xacro
+                                                    robot1_name:=$(arg robot1_name)
+                                                    robot2_name:=$(arg robot2_name)
+
+                                                    robot1_x_pos:=$(arg robot1_x_pos)
+                                                    robot1_y_pos:=$(arg robot1_y_pos) 
+                                                    robot1_z_pos:=$(arg robot1_z_pos)
+                                                    robot1_roll:=$(arg robot1_roll) 
+                                                    robot1_pitch:=$(arg robot1_pitch) 
+                                                    robot1_yaw:=$(arg robot1_yaw)
+
+                                                    robot2_x_pos:=$(arg robot2_x_pos)
+                                                    robot2_y_pos:=$(arg robot2_y_pos)
+                                                    robot2_z_pos:=$(arg robot2_z_pos)
+                                                    robot2_roll:=$(arg robot2_roll)
+                                                    robot2_pitch:=$(arg robot2_pitch)
+                                                    robot2_yaw:=$(arg robot2_yaw)
+
+
+                                                    finger1:=$(arg finger1)
+                                                    finger2:=$(arg finger2)
+
+                                                    simulation:=$(arg simulation)
+                                                    robot1_active:=$(arg robot1_active)
+                                                    robot2_active:=$(arg robot2_active)
+                                                    
+                                                "/>
+                                                
+    <group if="$(arg simulation)">
+        <node  name="robot_description" pkg="gazebo_ros" type="spawn_model" 
+                args="  -param robot_description 
+                        -urdf 
+                        -model dual
+                        -J $(arg robot1_name)_shoulder_pan_joint -1.567  
+                        -J $(arg robot1_name)_shoulder_lift_joint -0.767 
+                        -J $(arg robot1_name)_elbow_joint -1.767 
+                        -J $(arg robot1_name)_wrist_1_joint -2.367 
+                        -J $(arg robot1_name)_wrist_2_joint 1.567 
+                        -J $(arg robot1_name)_wrist_3_joint 0.0
+
+                        -J $(arg robot2_name)_shoulder_pan_joint -1.567
+                        -J $(arg robot2_name)_shoulder_lift_joint -0.767
+                        -J $(arg robot2_name)_elbow_joint -1.767
+                        -J $(arg robot2_name)_wrist_1_joint -2.367
+                        -J $(arg robot2_name)_wrist_2_joint 1.567
+                        -J $(arg robot2_name)_wrist_3_joint 0.0
+
+
+                        -J $(arg robot1_name)_bl_to_slider1 0.1
+                        -J $(arg robot1_name)_bl_to_slider2 -0.1     
+
+                        -unpause
+                        " 
+                respawn="false" 
+                output="screen" 
+                        />
+    </group>
+    
+    <include file="$(find dual_arm_bringup)/launch/controllers/robot_state_pub.launch"/>
+
+</launch>

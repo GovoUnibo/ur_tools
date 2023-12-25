@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<launch>
+
+
+
+  <arg name="robot_left_name" default="left"/>
+  <arg name="robot_right_name" default="right"/>
+
+  <arg name="activate_left" default="false"/>
+  <arg name="activate_right" default="true"/>
+
+  <arg name="robot_left_ip" default="192.168.0.102"/>
+  <arg name="robot_right_ip" default="192.168.0.103"/>
+
+
+  <include file="$(find dual_arm_bringup)/launch/real/dual_external_control.launch">
+    <arg name="activate_1" value="$(arg activate_left)"/>
+    <arg name="activate_2" value="$(arg activate_right)"/>
+    <arg name="robot1_name" value="$(arg robot_left_name)"/>
+    <arg name="robot2_name" value="$(arg robot_right_name)"/>
+    <arg name="robot1_ip" value="$(arg robot_left_ip)"/>
+    <arg name="robot2_ip" value="$(arg robot_right_ip)"/>
+  </include>
+
+  <!-- <include file="$(find dual_arm_bringup)/launch/real/dual_gripper.launch">
+    <arg name="activate_1" value="$(arg activate_left)"/>
+    <arg name="activate_2" value="$(arg activate_right)"/>
+    <arg name="gripper1_name" value="$(arg robot_left_name)"/>
+    <arg name="gripper2_name" value="$(arg robot_right_name)"/>
+    <arg name="gripper1_ip" value="$(arg robot_left_ip)"/>
+    <arg name="gripper2_ip" value="$(arg robot_right_ip)"/>
+  </include> -->
+
+  
+  <rosparam param="robot_in_use" subst_value="True">$(arg robot_right_name)</rosparam>
+
+
+
+
+
+
+</launch>

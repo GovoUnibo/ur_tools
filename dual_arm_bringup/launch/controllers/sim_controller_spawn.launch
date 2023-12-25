@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+
+    <arg name = "robot_name"   default = "left"/>
+
+    <!-- Trajectory controller -->
+    <rosparam file="$(find dual_arm_bringup)/config/arm_sim_controller.yaml" command="load" subst_value="True"/>
+
+    <node   name="$(arg robot_name)arm_ctrl_spwn"  pkg="controller_manager" type="spawner" respawn="false" output="screen"  
+            args="$(arg robot_name)_joint_group_pos_controller $(arg robot_name)_joint_state_controller" />
+
+
+
+</launch>
