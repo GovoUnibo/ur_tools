@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<launch>
-
-    <include file="$(find ur5e_moveit_config)/launch/demo.launch" />
-    <node name ="compute_jacobian" pkg="dual_arm_bringup" type="jac_moveit" output="screen" />
-
-
-</launch>
