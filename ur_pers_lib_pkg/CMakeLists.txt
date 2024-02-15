@@ -48,7 +48,7 @@ include_directories(
 )
 include_directories(SYSTEM ${Boost_INCLUDE_DIR} ${EIGEN3_INCLUDE_DIRS})
 
-add_library(pippo
+add_library(${PROJECT_NAME}
           include/ur_pers_lib_pkg/3DTransformations/Roll_Pitch_Yaw.cpp 
           include/ur_pers_lib_pkg/3DTransformations/AngularVelocity.cpp
           include/ur_pers_lib_pkg/3DTransformations/Homogeneus.cpp
@@ -84,7 +84,7 @@ add_library(pippo
           include/ur_pers_lib_pkg/Filters/Filters.cpp
     )
 
-target_link_libraries(pippo ${catkin_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
 
 # install(
 #   TARGETS ${PROJECT_NAME}
@@ -105,7 +105,14 @@ target_link_libraries(pippo ${catkin_LIBRARIES})
 #   ${Eigen3_LIBRARIES}
 #   ${PROJECT_NAME}
 # )
-
+add_executable(split_joint_state src/split_joint_state.cpp)
+                  
+target_link_libraries(split_joint_state
+  ${catkin_LIBRARIES}
+  ${Boost_LIBRARIES}
+  ${Eigen3_LIBRARIES}
+  ${PROJECT_NAME}
+)
 # add_executable(jac_moveit src/get_moveit_jacobian.cpp
 #               )
 
@@ -115,17 +122,3 @@ target_link_libraries(pippo ${catkin_LIBRARIES})
 #   ${Eigen3_LIBRARIES}
 # )
 
-# add_library(${PROJECT_NAME}
-#   src/hello_w.cpp
-# )
-# target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
-# install(
-#   TARGETS ${PROJECT_NAME}
-#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
-# )
-# install(
-#   DIRECTORY include/${PROJECT_NAME}/
-#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-# )

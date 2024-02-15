@@ -14,7 +14,7 @@ $(arg robot_name)ur_hardware_interface:
     publish_rate: *loop_hz
 
 # Publish all joint states ----------------------------------
-$(arg robot_name)_joint_state_controller:
+$(arg robot_name)/joint_state_controller:
    type:         joint_state_controller/JointStateController
    joints:       *robot_joints
    publish_rate: *loop_hz
@@ -77,7 +77,7 @@ $(arg robot_name)eff_joint_traj_controller:
   state_publish_rate: *loop_hz
   action_monitor_rate: 10
 
-$(arg robot_name)_joint_group_pos_controller:
+$(arg robot_name)/joint_group_pos_controller:
   type: position_controllers/JointGroupPositionController
   joints: *robot_joints
   publish_rate: *loop_hz

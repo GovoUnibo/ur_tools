@@ -36,10 +36,11 @@
 
     </include> 
 
-
+        
     <include file="$(find ur_pers_lib_pkg)/launch/controllers/sim_controller_spawn.launch">
         <arg name="robot_name" value="$(arg robot1_name)"/>
     </include>
+
     <include file="$(find ur_pers_lib_pkg)/launch/controllers/sim_controller_spawn.launch">
         <arg name="robot_name" value="$(arg robot2_name)"/>
     </include>
@@ -52,13 +53,13 @@
         <arg name="gripper_name" value="$(arg robot2_name)_"/>
     </include>
 
-  <!-- <node name="joint_state_publisher_total" type="joint_state_publisher" pkg="joint_state_publisher" output="screen">
-    <rosparam param="rate">500</rosparam>
-    <rosparam param="source_list" subst_value="True">[$(arg robot1_name)_joint_state_controller, $(arg robot2_name)_joint_state_controller]</rosparam>
-  </node> -->
 
-
-
+  
+    
+    <!-- Lancio del nodo joint_state_splitter con i nomi dei robot come argomenti -->
+    <node pkg="ur_pers_lib_pkg" type="split_joint_state" name="joint_state_splitter" output="screen" 
+            args="$(arg robot1_name) $(arg robot2_name)" />
+    
 
 
     <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->

@@ -52,11 +52,12 @@ void JointStateReader::jointStateCallback(const sensor_msgs::JointState::ConstPt
     {
 
         const std::string& joint_name = msg->name[i];
+        cout << "Joint name: " << joint_name << endl;
         auto it = this->joint_states_map_.find(joint_name);
 
         if (it != this->joint_states_map_.end()) {
             this->joint_states_map_[joint_name] = msg->position[i];
-            // std::cout << "Chiave: " << it->first << ", Valore: " << it->second << std::endl;
+            std::cout << "Chiave: " << it->first << ", Valore: " << it->second << std::endl;
         }
         
     }

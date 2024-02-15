@@ -34,29 +34,36 @@ namespace Universal_Robot
     }
     JointNames::JointNames(string custom_prefix)
     :prefix(custom_prefix)
-    {}
-
-    JointNames::~JointNames(){}
-    
-    vector<string> JointNames::getList(){
-
-        vector<string> joint_names = {  this->prefix + this->joint_1_name, 
+    {
+        this->joint_names = {  this->prefix + this->joint_1_name, 
                                         this->prefix + this->joint_2_name, 
                                         this->prefix + this->joint_3_name, 
                                         this->prefix + this->joint_4_name, 
                                         this->prefix + this->joint_5_name, 
                                         this->prefix + this->joint_6_name
                                         };
-
-        
-         //print in verde i nomi dei giunti selezionati
+        //print in verde i nomi dei giunti selezionati
         cout << "\033[1;32m" << "USING JOINT NAMES: " << "\033[0m" << endl;
         for (int i = 0; i < joint_names.size(); i++){
             cout << "\033[1;32m" << "Joint Name " << i << ": " "\033[0m";
             cout << "\033[1;32m" << joint_names[i] << "\033[0m" << endl;
         }
         cout << "\033[1;32m" << "------------------" << "\033[0m" << endl;
-        return joint_names;
+
+
+    }
+
+    JointNames::~JointNames(){}
+    
+    vector<string> JointNames::getList(){ return joint_names;}
+
+    bool JointNames::hasJoint(string joint_name){
+        vector<string> joint_names = getList();
+        for (int i = 0; i < joint_names.size(); i++){
+            if (joint_names[i] == joint_name)
+                return true;
+        }
+        return false;
     }
 
 } // namespace Universal_Robot
