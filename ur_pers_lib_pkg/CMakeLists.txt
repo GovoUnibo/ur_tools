@@ -20,6 +20,7 @@ find_package(catkin REQUIRED COMPONENTS
   
 
 )
+
 find_package(Eigen3 REQUIRED)
 
 
@@ -76,6 +77,7 @@ add_library(${PROJECT_NAME}
           include/ur_pers_lib_pkg/Ros_Controllers/JointGroupPubSub.cpp
           
           include/ur_pers_lib_pkg/Controllers/ComplianceControl.cpp
+          include/ur_pers_lib_pkg/Controllers/LQRController.cpp
 
           include/ur_pers_lib_pkg/ForceSensor/MassTorqueEstimation/EeRots_for_MassEstimation.cpp
           include/ur_pers_lib_pkg/ForceSensor/MassTorqueEstimation/PayLoad_Id_LeastSquare.cpp
