@@ -115,6 +115,17 @@ target_link_libraries(split_joint_state
   ${Eigen3_LIBRARIES}
   ${PROJECT_NAME}
 )
+
+add_executable(4pos_estimation src/4pos_estimation.cpp)
+                  
+target_link_libraries(4pos_estimation
+  ${catkin_LIBRARIES}
+  ${Boost_LIBRARIES}
+  ${Eigen3_LIBRARIES}
+  ${PROJECT_NAME}
+)
+
+
 # add_executable(jac_moveit src/get_moveit_jacobian.cpp
 #               )
 

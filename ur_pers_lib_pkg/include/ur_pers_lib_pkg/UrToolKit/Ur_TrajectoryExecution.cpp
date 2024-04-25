@@ -66,6 +66,47 @@ namespace Universal_Robot{
         this->pubTrajectory(); 
     }
 
+    // calculating the joint trapezoidal trajectory
+    std::vector<double> Ur_TrajectoryExecution::compute_joint_trap_traj(double qi, double qf, double acc_time, double dec_time, double traj_period)
+    {
+        joint_traj.setPuntoIniziale(qi);
+        joint_traj.setPuntoFinale(qf);
+        joint_traj.setAccTime(acc_time);
+        joint_traj.setDecTime(dec_time);
+        joint_traj.setTrajPeriod(traj_period);
+
+        double max_vel = (qf - qi)/(traj_period - (acc_time + dec_time)/2);
+        joint_traj.setMaxVelocity(max_vel);
+
+        joint_traj.computeTrajCoefficient();
+
+        double discretizzation = rate.expectedCycleTime().toSec();
+
+        return joint_traj.getDiscretizedPositionValues(discretizzation);
+    }
+
+    // moving joint trough trapezoidal trajectory discretizzation
+    void Ur_TrajectoryExecution::moveJointTrapezoidal(Eigen::VectorXd joint_end_pose, double acc_time, double dec_time, double traj_period)
+    {
+        Eigen::VectorXd joint_state = Ur_JointGroupController::getJointPositions();
+
+        std::vector<double> traj_joint[6];
+
+        for (int i = 0; i < 6; i++)
+        {
+            traj_joint[i] = this->compute_joint_trap_traj(joint_state(i), joint_end_pose(i), acc_time, dec_time, traj_period);
+        }
+
+        VectorXd joint_goal(6);
+        
+        for (int i = 0; i < traj_joint[0].size(); i++)
+        {
+            joint_goal << traj_joint[0][i], traj_joint[1][i], traj_joint[2][i], traj_joint[3][i], traj_joint[4][i], traj_joint[5][i];
+            Ur_JointGroupController::MoveJoint(joint_goal);
+            rate.sleep();
+        }      
+        
+    }
 
 
 } // namespace

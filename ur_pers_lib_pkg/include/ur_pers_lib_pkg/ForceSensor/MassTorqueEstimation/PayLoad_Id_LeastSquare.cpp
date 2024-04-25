@@ -153,8 +153,14 @@ VectorXd PayLoad_LeastSquare::getFTVectorGripperRejected(double rx, double ry, d
     // cout << "Force Letta " << ft.head(3).transpose() << endl;
     VectorXd ft_compensated = ft - ftEstimation;
 
-    if (in_base_frame)
-        return R_sb * ft_compensated;
+    if (in_base_frame){
+        cout <<  "R_sb: \n" << R_sb << endl;
+        cout <<  "ft: \n" << ft_compensated.head(3) << endl;
+        // ft_compensated.head(3) = R_sb*ft_compensated.head(3);
+        // ft_compensated.tail(3) = R_sb*ft_compensated.tail(3);
+        // return R_sb  ft_compensated;
+        return ft_compensated;
+    }
     else
         return ft_compensated;
     

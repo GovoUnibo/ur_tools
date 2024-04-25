@@ -99,6 +99,19 @@
         </gazebo>
     </xacro:if>
 
+    <gazebo reference="left_wrist_3_joint">  
+    <provideFeedback>true</provideFeedback>
+    </gazebo>
+    <gazebo>
+        <plugin name="ft_sensor" filename="libgazebo_ros_ft_sensor.so">
+            <alwaysOn>true</alwaysOn>
+            <updateRate>500.0</updateRate>
+            <topicName>ft_sensor</topicName>
+            <gaussianNoise>0.0</gaussianNoise>
+            <jointName>left_wrist_3_joint</jointName>
+        </plugin>
+    </gazebo>
+
 
 </robot>
 
