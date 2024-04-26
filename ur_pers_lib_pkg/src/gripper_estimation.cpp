@@ -31,13 +31,11 @@ int main(int argc, char** argv) {
 
 
     string robot_name; 
-    ros::param::get("/robot_in_use", robot_name);
-    Ur_TrajectoryExecution ur5e_traj(nh, UR_TYPE::UR5e, robot_name, loop_rate);
+    // ros::param::get("/robot_in_use", robot_name);
+    Ur_TrajectoryExecution ur5e_traj(nh, UR_TYPE::UR5e, "left", loop_rate);
     // ur5e.setWorldToBL((VectorXd(6) << 0, 0, 0, 0, 0, 3.142).finished());
 
-
-
-    PayLoad_LeastSquare payload(nh, loop_rate, "/right/wrench");
+    PayLoad_LeastSquare payload(nh, loop_rate, "/ft_sensor");
     
 
     
@@ -51,7 +49,7 @@ int main(int argc, char** argv) {
    
     ur5e_traj.movePoly5(pos1, 5, 1/double(publish_rate));
     ros::Duration(1).sleep();
-    payload.computeBiasUsingGripperMass(1.48);
+    // payload.computeBiasUsingGripperMass(0.0);
     ros::Duration(1).sleep();
     payload.registerFTValues(pos1.tail(3));
 
@@ -84,9 +82,9 @@ int main(int argc, char** argv) {
         VectorXd V_fwrd = ur5e_traj.getForwardKinematics();
 
 
-        cout << payload.getFTVectorGripperRejected(V_fwrd(3), V_fwrd(4), V_fwrd(5), false).transpose() << endl;
+        cout << payload.getFTVector(V_fwrd(3), V_fwrd(4), V_fwrd(5), false).transpose() << endl;
 
-        cout << payload.getFTVectorGripperRejected(V_fwrd(3), V_fwrd(4), V_fwrd(5), true).transpose() << endl;
+        cout << payload.getFTVector(V_fwrd(3), V_fwrd(4), V_fwrd(5), true).transpose() << endl;
         
         
         // cout << "Force in Base frame: " << endl << ForceTorque.head(3) << endl;

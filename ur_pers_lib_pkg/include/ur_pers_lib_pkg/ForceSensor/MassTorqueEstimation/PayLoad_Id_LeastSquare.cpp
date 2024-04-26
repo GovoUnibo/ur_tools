@@ -48,8 +48,8 @@ void PayLoad_LeastSquare::registerFTValues(Eigen::Vector3d eeRot) {
 
     VectorXd ft = SensorReader::getWrenchInSensorFrame();
 
-    //write in red forces registered
-    cout << "\033[1;31m" << "Forces registered: " << ft(0) << " " << ft(1) << " " << ft(2) <<  endl;
+    //write in violet forces registered
+    cout << "\033[1;35m" << "Forces registered: " << ft(0) << " " << ft(1) << " " << ft(2) <<  endl;
     cout << "Torques registered: " << ft(3) << " " << ft(4) << " " << ft(5) << endl;
     cout << "Rotations registered: " << eeRot(0) << " " << eeRot(1) << " " << eeRot(2) << "\033[0m" << endl;
     double fx = ft(0); double fy = ft(1); double fz = ft(2); double tx = ft(3); double ty = ft(4); double tz = ft(5);
@@ -141,12 +141,12 @@ Vector3d PayLoad_LeastSquare::getTorqueEstimationVector(double fx, double fy, do
     return Vector3d(T_x, T_y, T_z);
 }
 
-VectorXd PayLoad_LeastSquare::getFTVectorGripperRejected(double rx, double ry, double rz, bool in_base_frame){
-    R_sb = RPY_To_RotationMatrix(rx, ry, rz);
-    VectorXd ft = SensorReader::getWrenchInSensorFrame(); // unbiased wrench
+VectorXd PayLoad_LeastSquare::getFTVector(double rx, double ry, double rz, bool in_base_frame){
+    R_sb = RPY_To_RotationMatrix(rx, ry, rz); // rotazione dal base frame al sensore frame
+    VectorXd ft = SensorReader::getWrenchInSensorFrame();
 
 
-
+    //se voglio portare le le forze dalla base al sensor devo fare R_sb * ft
     ftEstimation << this->mass * (R_sb.transpose() * gravityVector), getTorqueEstimationVector(ft(0), ft(1), ft(2));
 
     // cout << "Force Gravity: " << ftEstimation.head(3).transpose() << endl;
@@ -154,11 +154,8 @@ VectorXd PayLoad_LeastSquare::getFTVectorGripperRejected(double rx, double ry, d
     VectorXd ft_compensated = ft - ftEstimation;
 
     if (in_base_frame){
-        cout <<  "R_sb: \n" << R_sb << endl;
-        cout <<  "ft: \n" << ft_compensated.head(3) << endl;
-        // ft_compensated.head(3) = R_sb*ft_compensated.head(3);
-        // ft_compensated.tail(3) = R_sb*ft_compensated.tail(3);
-        // return R_sb  ft_compensated;
+        ft_compensated.head(3) = R_sb*ft_compensated.head(3);
+        ft_compensated.tail(3) = R_sb*ft_compensated.tail(3);
         return ft_compensated;
     }
     else

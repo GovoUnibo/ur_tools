@@ -68,6 +68,9 @@ namespace Universal_Robot{
 
     // calculating the joint trapezoidal trajectory
     std::vector<double> Ur_TrajectoryExecution::compute_joint_trap_traj(double qi, double qf, double acc_time, double dec_time, double traj_period)
+    /*  this function is used to compute a single joint trapezoidal trajectory 
+        given the initial and final joint position, the acceleration time, the deceleration time and the total trajectory time
+        it computes the trajectory coefficients and returns the discretized joint position values*/
     {
         joint_traj.setPuntoIniziale(qi);
         joint_traj.setPuntoFinale(qf);
@@ -93,9 +96,7 @@ namespace Universal_Robot{
         std::vector<double> traj_joint[6];
 
         for (int i = 0; i < 6; i++)
-        {
             traj_joint[i] = this->compute_joint_trap_traj(joint_state(i), joint_end_pose(i), acc_time, dec_time, traj_period);
-        }
 
         VectorXd joint_goal(6);
         

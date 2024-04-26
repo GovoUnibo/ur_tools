@@ -35,9 +35,9 @@ SensorReader::SensorReader(ros::NodeHandle& nh, ros::Rate sensor_update_rate_hz,
     this->R_matrix << 1, 0, 0,
                     0, 1, 0,
                     0, 0, 1;
-
+    std::cout << "\033[1;33m" << "Waiting for sensor topic: " << topic_name << "\033[0m" << std::endl;
     ros::topic::waitForMessage<geometry_msgs::WrenchStamped>(topic_name);
-    std::cout << "SensorReader initialized" << std::endl;
+    std::cout << "\033[1;32m" << "Sensor topic initialized: " << topic_name << "\033[0m" << std::endl;
     
     this->sensor_initialized = true;
     
@@ -58,7 +58,6 @@ bool SensorReader::isSensorInitialized() const{
 // ----------------- bias -----------------//
 void SensorReader::setSensorBias(double fx0, double fy0, double fz0, double tx0, double ty0, double tz0){
     this->FT_bias.set(fx0, fy0, fz0, tx0, ty0, tz0);
-    this->eliminate_bias = true;
 }
 
 void SensorReader::setSensorBias(double mass){
@@ -80,7 +79,6 @@ void SensorReader::setSensorBias(double mass){
 
     this->setUseMovingAverageFilter(false);
     this->setUseCompensateGravity(false);
-    this->eliminate_bias = true;
 }
 
 void SensorReader::setSensorBias_Using2RobotPos(){
@@ -121,7 +119,7 @@ void SensorReader::setSensorBias_Using2RobotPos(){
     this->FT_bias.F_z += abs(f_massa_sensore);
     std::cout << "Sensor mass: " << abs(f_massa_sensore / this->gravity_vector(2)) << std::endl;
     addMass_and_CenterOfMass(abs(f_massa_sensore / this->gravity_vector(2)), 0, 0, 0);
-    this->eliminate_bias = true;
+
     this->setUseMovingAverageFilter(false);
 }
 
@@ -180,9 +178,22 @@ void SensorReader::FT_sensor_Reading_Callback(const geometry_msgs::WrenchStamped
  
     
     this->FT_measured = msg;
+    // std::cout << "Fx Measured: " << FT_measured.F_x << std::endl;
+    // std::cout << "Fy Measured: " << FT_measured.F_y << std::endl;
+    // std::cout << "Fz Measured: " << FT_measured.F_z << std::endl;
+    // std::cout << "Tx Measured: " << FT_measured.T_x << std::endl;
+    // std::cout << "Ty Measured: " << FT_measured.T_y << std::endl;
+    // std::cout << "Tz Measured: " << FT_measured.T_z << std::endl;
+    // std::cout << "------------------------" << std::endl;
 
-    if(eliminate_bias)
-        this->FT_measured -= this->FT_bias;
+    this->FT_measured -= this->FT_bias;
+    // std::cout << "Fx Measured no Bias: " << FT_measured.F_x << std::endl;
+    // std::cout << "Fy Measured no Bias: " << FT_measured.F_y << std::endl;
+    // std::cout << "Fz Measured no Bias: " << FT_measured.F_z << std::endl;
+    // std::cout << "Tx Measured no Bias: " << FT_measured.T_x << std::endl;
+    // std::cout << "Ty Measured no Bias: " << FT_measured.T_y << std::endl;
+    // std::cout << "Tz Measured no Bias: " << FT_measured.T_z << std::endl;
+    // std::cout << "------------------------" << std::endl;
     
 
     if(useCompensateGravity)

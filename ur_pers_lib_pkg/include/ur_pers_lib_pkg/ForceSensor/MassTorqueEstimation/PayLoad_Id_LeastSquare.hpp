@@ -31,7 +31,7 @@ class PayLoad_LeastSquare : private SensorReader
     using  SensorReader::getWrenchInBaseFrame;
     using  SensorReader::getWrenchInSensorFrame;
 
-    Eigen::VectorXd getFTVectorGripperRejected(double rx, double ry, double rz, bool in_base_frame=true);
+    Eigen::VectorXd getFTVector(double rx, double ry, double rz, bool in_base_frame=true);
 
 private:
     void estimationOfMass(); 

@@ -66,9 +66,9 @@ int main(int argc, char** argv) {
         
         VectorXd V_fwrd = left_arm.getForwardKinematics();
         cout << "qui1" << endl;
-        cout << payload.getFTVectorGripperRejected(V_fwrd(3), V_fwrd(4), V_fwrd(5), false).transpose() << endl;
+        cout << payload.getFTVector(V_fwrd(3), V_fwrd(4), V_fwrd(5), false).transpose() << endl;
         cout << "qui2" << endl;
-        cout << payload.getFTVectorGripperRejected(V_fwrd(3), V_fwrd(4), V_fwrd(5), true).transpose() << endl;
+        cout << payload.getFTVector(V_fwrd(3), V_fwrd(4), V_fwrd(5), true).transpose() << endl;
         cout << "qui3" << endl;
         // cout << "Force in Base frame: " << endl << ForceTorque.head(3) << endl;
 

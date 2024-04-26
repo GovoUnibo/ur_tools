@@ -45,9 +45,9 @@ public:
 
     void FT_sensor_Reading_Callback(const geometry_msgs::WrenchStamped& msg);
 
-    ForceTorque_s compensateGravity(); // prende in input l'orientazione del sensore rispetto alla base/mondo
-    void addMass_and_CenterOfMass(double mass, double pos_x, double pos_y, double pos_z); // la trovi su urdf
-    void setRotMatrix_sb(double rot_ft_x, double rot_ft_y, double rot_ft_z);
+    ForceTorque_s compensateGravity(); // prende in input l'orientamento del sensore rispetto alla base/mondo
+    void addMass_and_CenterOfMass(double mass, double pos_x, double pos_y, double pos_z); // se coniosci già
+    void setRotMatrix_sb(double rot_ft_x, double rot_ft_y, double rot_ft_z); 
 
     void setUseLowPassFilter(bool useLowPassFilter);
     void setUseMovingAverageFilter(bool useMovingAverageFilter);

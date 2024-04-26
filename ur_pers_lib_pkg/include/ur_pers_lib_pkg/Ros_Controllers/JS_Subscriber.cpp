@@ -17,7 +17,7 @@ JointStateReader::JointStateReader(ros::NodeHandle& nh, const std::vector<std::s
         joint_states_map_[joint_name] = 0.0;
 
     this->initialized_ = false;
-    std::cout << "\033[1;33m" << "Waiting for joint states with names: " << topic_name << "\033[0m" << std::endl;
+    std::cout << "\033[1;33m" << "Waiting for joint states with names: \n" << topic_name << "\033[0m" << std::endl;
     for (const auto& joint_name : this->joint_names_)
         std::cout << "\t - \033[1;33m" << joint_name << "\033[0m" << std::endl;
     sensor_msgs::JointState::ConstPtr initial_msg =  ros::topic::waitForMessage<sensor_msgs::JointState>(topic_name);

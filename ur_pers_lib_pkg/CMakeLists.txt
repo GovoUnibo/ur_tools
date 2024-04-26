@@ -99,14 +99,14 @@ target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
 #   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
 # )
       
-# add_executable(grav_comp src/gripper_estimation.cpp)
+add_executable(grav_comp src/gripper_estimation.cpp)
                   
-# target_link_libraries(grav_comp
-#   ${catkin_LIBRARIES}
-#   ${Boost_LIBRARIES}
-#   ${Eigen3_LIBRARIES}
-#   ${PROJECT_NAME}
-# )
+target_link_libraries(grav_comp
+  ${catkin_LIBRARIES}
+  ${Boost_LIBRARIES}
+  ${Eigen3_LIBRARIES}
+  ${PROJECT_NAME}
+)
 add_executable(split_joint_state src/split_joint_state.cpp)
                   
 target_link_libraries(split_joint_state
