@@ -44,14 +44,14 @@ int main(int argc, char** argv) {
     cout << endl;
     
     // position 3
-    pos3 << -1.56386, -0.76384, -1.76386, 0.0, 0.0, -5.34765e-06;
+    pos3 << -1.56386, -0.76384, -1.76386, 3.4, 0.0, -5.34765e-06;
     left_arm.moveJointTrapezoidal(pos3, t_acc, t_dec, t_traj);
     ros::Duration(3).sleep();
     payload.registerFTValues(left_arm.getForwardKinematics().tail(3));
     cout << endl;
 
     // position 4
-    pos4 << -1.56386, -0.76384, -1.76386, 2.2, 0.5, -5.34765e-06;
+    pos4 << -1.56386, -0.76384, -1.76386, 7.2, 1.3, -5.34765e-06;
     pos4(5) = 0.0;
     left_arm.moveJointTrapezoidal(pos4, t_acc, t_dec, t_traj);
     ros::Duration(3).sleep();

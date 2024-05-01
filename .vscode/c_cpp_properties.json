@@ -1,0 +1,25 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/giulio/ws_online/devel/include/**",
+        "/opt/ros/noetic/include/**",
+        "/home/giulio/ws_online/src/ur_tools/Universal_Robots_ROS_Driver/ur_calibration/include/**",
+        "/home/giulio/ws_online/src/ur_tools/Universal_Robots_Client_Library/include/**",
+        "/home/giulio/ws_online/src/ur_tools/ur_pers_lib_pkg/include/**",
+        "/home/giulio/ws_online/src/ur_tools/Universal_Robots_ROS_Driver/ur_robot_driver/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}
