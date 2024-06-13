@@ -3,25 +3,19 @@
 
     <arg name = "robot_name"   default = "left"/>
 
+    <arg name="controller_type" default="joint_group_pos_controller"/>
+
+
+
+
     <!-- Trajectory controller -->
     <rosparam file="$(find ur_pers_lib_pkg)/config/arm_sim_controller.yaml" command="load" subst_value="True"/>
    
         <node name="$(arg robot_name)arm_ctrl_spwn"  pkg="controller_manager" type="spawner" respawn="false" output="screen"  
-        args="$(arg robot_name)/joint_group_pos_controller "/>
-       
+        args="$(arg robot_name)/$(arg controller_type) " />
        
         <node name="$(arg robot_name)joint_st_spwn"  pkg="controller_manager" type="spawner" respawn="false" output="screen"  
-        args="$(arg robot_name)/joint_state_controller " >
+        args="$(arg robot_name)/joint_state_controller ">
         </node>
-
-
-        
-       
-        <!-- <node name="$(arg robot_name)_joint_state_publisher_total" type="joint_state_publisher" pkg="joint_state_publisher" output="screen">
-            <remap from="joint_states" to="$(arg robot_name)/joint_states"/>
-            <rosparam param="rate">500</rosparam>
-        </node>  -->
-
-
 
 </launch>

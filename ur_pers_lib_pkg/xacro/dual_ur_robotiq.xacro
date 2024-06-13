@@ -8,8 +8,8 @@
     <xacro:arg name="simulation" default="true"/>
 
 
-    <xacro:arg name="robot1_name" default="1"/>
-    <xacro:arg name="robot2_name" default="2"/>
+    <xacro:arg name="robot1_name" default="right"/>
+    <xacro:arg name="robot2_name" default="left"/>
     <xacro:arg name="robot1_active" default="true"/>
     <xacro:arg name="robot2_active" default="true"/>
 
@@ -36,17 +36,23 @@
     <xacro:arg name="finger1" default="tactile2x6.STL"/>
     <xacro:arg name="finger2" default="tactile2x6.STL"/>
 
+    <xacro:arg name="robot1_hw_interface" default="hardware_interface/PositionJointInterface"/>
+    <xacro:arg name="robot2_hw_interface" default="hardware_interface/PositionJointInterface"/>
+    <xacro:arg name="gripper_hw_interface" default="hardware_interface/PositionJointInterface"/>
+
+
     <!-- Include URDFs -->
     <xacro:include filename="$(find ur_description)/urdf/inc/ur5e_macro.xacro"/>
     <xacro:include filename="$(find robotiq_control)/urdf/hand_e/robotiq.xacro"/>
 
+
     <link name="world"/>
 
   <!-- Spawn the robots -->
-    <xacro:macro name="ur_plus_robotiq" params="prefix parent finger1_path='' finger2_path='' rpy:='0 0 0' xyz:='0 0 0' sim:='True'"> <!-- *origin-->
+    <xacro:macro name="ur_plus_robotiq" params="prefix parent robot_hw_interf gripper_hw_interf finger1_path='' finger2_path='' rpy:='0 0 0' xyz:='0 0 0' sim:='True'"> <!-- *origin-->
 
         <xacro:ur5e_robot prefix="${prefix}" 
-                          transmission_hw_interface="hardware_interface/PositionJointInterface"
+                          transmission_hw_interface="${robot_hw_interf}"
         />
 
         <xacro:robotiq_hand_e gripper_name="${prefix}"
@@ -55,7 +61,8 @@
                         parent="${prefix}tool0"
                         xyz="0 0 0"
                         rpy="0 -1.57 0"
-                        hardware_interface="hardware_interface/PositionJointInterface"/>
+                        hardware_interface="${gripper_hw_interf}"
+        />
 
         <joint name="${prefix}world_to_base" type="fixed">
             <parent link="world"/>
@@ -68,17 +75,22 @@
  
     <xacro:if value="$(arg robot1_active)">
         <xacro:ur_plus_robotiq  prefix="${robot1_prefix}" 
-                                parent="world" 
+                                parent="world"
+                                robot_hw_interf="$(arg robot1_hw_interface)"
+                                gripper_hw_interf="$(arg gripper_hw_interface)"
                                 finger1_path="$(arg finger1)" 
                                 finger2_path="$(arg finger2)" 
                                 xyz="$(arg robot1_x_pos) $(arg robot1_y_pos) $(arg robot1_z_pos)"
                                 rpy="$(arg robot1_roll) $(arg robot1_pitch) $(arg robot1_yaw)"
+
         />
     </xacro:if>
     
     <xacro:if value="$(arg robot2_active)">
         <xacro:ur_plus_robotiq  prefix="${robot2_prefix}" 
                                 parent="world" 
+                                robot_hw_interf="$(arg robot2_hw_interface)"
+                                gripper_hw_interf="$(arg gripper_hw_interface)"
                                 finger1_path="$(arg finger1)" 
                                 finger2_path="$(arg finger2)" 
                                 xyz="$(arg robot2_x_pos) $(arg robot2_y_pos) $(arg robot2_z_pos)"

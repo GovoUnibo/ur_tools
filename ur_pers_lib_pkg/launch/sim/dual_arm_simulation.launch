@@ -14,6 +14,21 @@
     <arg name="debug" default="false"/>
 
 
+
+    <!--position cntrl-->
+    <arg name="robot1_hw_interface" default="hardware_interface/PositionJointInterface"/>
+    <arg name="robot2_hw_interface" default="hardware_interface/PositionJointInterface"/>
+    <arg name="controller_type" default="joint_group_pos_controller"/>
+
+
+    <!--velocity cntrl-->
+    <!-- <arg name="robot1_hw_interface" default="hardware_interface/VelocityJointInterface"/>
+    <arg name="robot2_hw_interface" default="hardware_interface/VelocityJointInterface"/>
+    <arg name="controller_type" default="joint_group_vel_controller"/> -->
+
+
+
+
     <include file="$(find ur_pers_lib_pkg)/launch/urdf/dual.launch">
         <arg name="robot1_name" value="$(arg robot1_name)"/>
         <arg name="robot2_name" value="$(arg robot2_name)"/>
@@ -31,18 +46,23 @@
         <arg name="robot2_roll" value="0.0"/>
         <arg name="robot2_pitch" value="0.0"/>
         <arg name="robot2_yaw" value="0.0"/>
+        <arg name="robot1_hw_interface" value="$(arg robot1_hw_interface)"/>
+        <arg name="robot2_hw_interface" value="$(arg robot2_hw_interface)"/>
 
         <arg name="simulation" value="true"/>
 
     </include> 
 
-        
+
+
     <include file="$(find ur_pers_lib_pkg)/launch/controllers/sim_controller_spawn.launch">
         <arg name="robot_name" value="$(arg robot1_name)"/>
+        <arg name="controller_type" value="$(arg controller_type)"/>
     </include>
 
     <include file="$(find ur_pers_lib_pkg)/launch/controllers/sim_controller_spawn.launch">
         <arg name="robot_name" value="$(arg robot2_name)"/>
+        <arg name="controller_type" value="$(arg controller_type)"/>
     </include>
 
     <include file="$(find robotiq_control)/launch/gripper_controller_spawn.launch">

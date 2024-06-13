@@ -13,6 +13,7 @@ namespace Universal_Robot {
             , arg2_(arg2) 
             , robot1_joint_names(arg1_+ '_')
             , robot2_joint_names(arg2_+ '_')
+            , rate(1000)
             {
             // Inizializzazione del nodo ROS
             ros::NodeHandle nh;
@@ -24,14 +25,21 @@ namespace Universal_Robot {
             jointStatePub1 = nh.advertise<sensor_msgs::JointState>(arg1_ + '/' + joint_state_name, 10);
             jointStatePub2 = nh.advertise<sensor_msgs::JointState>(arg2_ + '/' + joint_state_name, 10);
 
-            cout << "\033[1;32m" << "JointStateSplitter  initialized: " << "\033[0m" << endl;
+            cout << "\033[1;32m" << "JointStateSplitter initialized: " << "\033[0m" << endl;
             cout << "\033[1;32m" << "Robot 1: " << joint_state_name << "\033[0m" << endl;
             cout << "\033[1;32m" << "Robot 2: " << joint_state_name << "\033[0m" << endl;
+        }
+        
+        bool hasPrefix(const std::string& joint_name, const std::string& prefix) {
+            return joint_name.find(prefix) == 0;
         }
 
         // Callback per il topic joint_states
         void jointStateCallback(const sensor_msgs::JointState::ConstPtr& msg) {
             // Creazione di due nuovi messaggi JointState
+            // add stamp
+
+
             sensor_msgs::JointState msg1, msg2;
 
             // Estrazione dei joint relativi al primo robot
@@ -41,8 +49,11 @@ namespace Universal_Robot {
                     msg1.position.push_back(msg->position[i]);
                     msg1.velocity.push_back(msg->velocity[i]);
                     msg1.effort.push_back(msg->effort[i]);
+                    // jointStatePub1.publish(msg1);
                 }
+                
             }
+            
 
             // Estrazione dei joint relativi al secondo robot
             for (size_t i = 0; i < msg->name.size(); ++i) {
@@ -51,12 +62,25 @@ namespace Universal_Robot {
                     msg2.position.push_back(msg->position[i]);
                     msg2.velocity.push_back(msg->velocity[i]);
                     msg2.effort.push_back(msg->effort[i]);
+                    // jointStatePub2.publish(msg2);
                 }
             }
 
-            // Pubblicazione dei due messaggi sui rispettivi topic
-            jointStatePub1.publish(msg1);
-            jointStatePub2.publish(msg2);
+            if (this->hasPrefix(msg->name[0], arg1_) ){
+                msg1.header = msg->header;
+                msg1.header.stamp = ros::Time::now();
+                jointStatePub1.publish(msg1);
+            }
+            
+            else if (this->hasPrefix(msg->name[0], arg2_)){
+                msg2.header = msg->header;
+                msg2.header.stamp = ros::Time::now();
+                jointStatePub2.publish(msg2);
+            }
+            
+            rate.sleep();
+            
+            
         }
 
     private:
@@ -68,12 +92,14 @@ namespace Universal_Robot {
         std::string arg2_;
         JointNames robot1_joint_names;
         JointNames robot2_joint_names;
+        ros::Rate rate;
     };
 } // namespace Universal_Robot
 
 int main(int argc, char** argv) {
     // Inizializzazione del nodo ROS
     ros::init(argc, argv, "joint_state_splitter");
+    ros::NodeHandle nh;
 
     // Controllo dei parametri
     if (argc != 3) {

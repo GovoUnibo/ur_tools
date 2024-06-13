@@ -26,9 +26,11 @@
 
     </include> 
 
+    <arg name="controller_type" default="joint_group_pos_controller"/>
 
     <include file="$(find ur_pers_lib_pkg)/launch/controllers/controller_spawn.launch">
         <arg name="robot_name" value="$(arg robot_name)"/>
+        <arg name="controller_type" value="$(arg controller_type)"/>
     </include>
 
     <include file="$(find robotiq_control)/launch/gripper_controller_spawn.launch">
