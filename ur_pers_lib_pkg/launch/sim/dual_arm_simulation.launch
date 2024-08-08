@@ -15,16 +15,16 @@
 
 
 
-    <!--position cntrl-->
-    <arg name="robot1_hw_interface" default="hardware_interface/PositionJointInterface"/>
+        <!--position cntrl-->
+    <!-- <arg name="robot1_hw_interface" default="hardware_interface/PositionJointInterface"/>
     <arg name="robot2_hw_interface" default="hardware_interface/PositionJointInterface"/>
-    <arg name="controller_type" default="joint_group_pos_controller"/>
+    <arg name="controller_type" default="joint_group_pos_controller"/> -->
 
 
     <!--velocity cntrl-->
-    <!-- <arg name="robot1_hw_interface" default="hardware_interface/VelocityJointInterface"/>
+    <arg name="robot1_hw_interface" default="hardware_interface/VelocityJointInterface"/>
     <arg name="robot2_hw_interface" default="hardware_interface/VelocityJointInterface"/>
-    <arg name="controller_type" default="joint_group_vel_controller"/> -->
+    <arg name="controller_type" default="joint_group_vel_controller"/>
 
 
 
