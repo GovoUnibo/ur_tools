@@ -19,22 +19,22 @@
     <xacro:arg name="connected_to" default=""/> <!-- If using a different frame with ${connected_to} param, make sure 'world' frame exists in the TF tree -->
 
 
-    <xacro:arg name="robot1_x_pos" default="0.0"/>
+    <xacro:arg name="robot1_x_pos" default="-0.46"/>
     <xacro:arg name="robot1_y_pos" default="0.0"/>
     <xacro:arg name="robot1_z_pos" default="0.0"/>
     <xacro:arg name="robot1_roll"  default="0.0"/>
     <xacro:arg name="robot1_pitch" default="0.0"/>
-    <xacro:arg name="robot1_yaw"   default="0.0"/>
+    <xacro:arg name="robot1_yaw"   default="-1.57"/>
 
-    <xacro:arg name="robot2_x_pos" default="0.0"/>
+    <xacro:arg name="robot2_x_pos" default="0.46"/>
     <xacro:arg name="robot2_y_pos" default="0.0"/>
     <xacro:arg name="robot2_z_pos" default="0.0"/>
     <xacro:arg name="robot2_roll"  default="0.0"/>
     <xacro:arg name="robot2_pitch" default="0.0"/>
-    <xacro:arg name="robot2_yaw"   default="0.0"/>
+    <xacro:arg name="robot2_yaw"   default="1.57"/>
     
-    <xacro:arg name="finger1" default="tactile2x6.STL"/>
-    <xacro:arg name="finger2" default="tactile2x6.STL"/>
+    <xacro:arg name="finger1" default="tactile5x5.STL"/>
+    <xacro:arg name="finger2" default="tactile5x5.STL"/>
 
     <xacro:arg name="robot1_hw_interface" default="hardware_interface/PositionJointInterface"/>
     <xacro:arg name="robot2_hw_interface" default="hardware_interface/PositionJointInterface"/>

@@ -6,11 +6,14 @@
   <arg name="robot_left_name" default="left"/>
   <arg name="robot_right_name" default="right"/>
 
-  <arg name="activate_left" default="false"/>
+  <arg name="activate_left" default="true"/>
   <arg name="activate_right" default="true"/>
 
   <arg name="robot_left_ip" default="192.168.0.102"/>
   <arg name="robot_right_ip" default="192.168.0.103"/>
+
+  <arg name="robot_left_pose" default="-0.46 0 0 0 0 -1.57"/>
+  <arg name="robot_right_pose" default="0.46 0 0 0 0 1.57"/>
 
 
   <include file="$(find ur_pers_lib_pkg)/launch/real/dual_external_control.launch">
@@ -20,6 +23,8 @@
     <arg name="robot2_name" value="$(arg robot_right_name)"/>
     <arg name="robot1_ip" value="$(arg robot_left_ip)"/>
     <arg name="robot2_ip" value="$(arg robot_right_ip)"/>
+    <arg name="robot1_pose" default="$(arg robot_left_pose)"/>
+    <arg name="robot2_pose" default="$(arg robot_right_pose)"/>
   </include>
 
   <!-- <include file="$(find ur_pers_lib_pkg)/launch/real/dual_gripper.launch">
@@ -33,6 +38,7 @@
 
   
   <rosparam param="robot_in_use" subst_value="True">$(arg robot_right_name)</rosparam>
+  <rosparam param="robot_in_use" subst_value="True">$(arg robot_left_name)</rosparam>
 
 
 

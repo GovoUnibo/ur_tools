@@ -314,7 +314,7 @@ ForceTorque_s SensorReader::compensateGravity(){
 
 void SensorReader::setRotMatrix_sb(double rot_ft_x, double rot_ft_y, double rot_ft_z){  
     // matrice di rotazione che porta il sensore nelle coordiate della base
-    R_matrix = RPY_To_RotationMatrix(rot_ft_x, rot_ft_y, rot_ft_z);
+    this->R_matrix = RPY_To_RotationMatrix(rot_ft_x, rot_ft_y, rot_ft_z);
 }
 
 

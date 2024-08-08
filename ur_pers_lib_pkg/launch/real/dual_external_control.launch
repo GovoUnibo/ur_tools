@@ -7,22 +7,38 @@
     <arg name="activate_1" default="true"/>
     <arg name="activate_2" default="true"/>
 
+    <arg name="robot1_pose" default="0 0 0 0 0 0"/>
+    <arg name="robot2_pose" default="0 0 0 0 0 0"/>
+
+
     <arg name="robot1_ip" default="192.168.0.102"/>
     <arg name="robot2_ip" default="192.168.0.103"/>
 
     <arg name="use_tool_communication" default="false" doc="On e-Series robots tool communication can be enabled with this argument"/>
 
     <arg name="controller_config_file" default="$(find ur_robot_driver)/config/ur5e_controllers.yaml" doc="Config file used for defining the ROS-Control controllers."/>
-    <arg name="controllers" default="joint_state_controller joint_group_pos_controller force_torque_sensor_controller" doc="Controllers that are activated by default."/>
-    <arg name="stopped_controllers" default=""/>
+    <arg name="controllers" default="joint_state_controller joint_group_vel_controller force_torque_sensor_controller" doc="Controllers that are activated by default."/>
+    <arg name="stopped_controllers" default="joint_group_pos_controller"/>
     <!-- joint_group_vel_controller pos_joint_traj_controller -->
 
     <include file="$(find ur_pers_lib_pkg)/launch/urdf/dual.launch">
         <arg name="robot1_name" value="$(arg robot1_name)"/>
         <arg name="robot2_name" value="$(arg robot2_name)"/>
         <arg name="simulation" value="false"/>
-        <arg name="robot1_active" value="$(arg activate_1)"/>
-        <arg name="robot2_active" value="$(arg activate_2)"/>
+        
+        <arg name="robot1_x_pos" value="$(eval arg('robot1_pose').split()[0])"/>
+        <arg name="robot1_y_pos" value="$(eval arg('robot1_pose').split()[1])"/>
+        <arg name="robot1_z_pos" value="$(eval arg('robot1_pose').split()[2])"/>
+        <arg name="robot1_roll" value="$(eval arg('robot1_pose').split()[3])"/>
+        <arg name="robot1_pitch" value="$(eval arg('robot1_pose').split()[4])"/>
+        <arg name="robot1_yaw" value="$(eval arg('robot1_pose').split()[5])"/>
+
+        <arg name="robot2_x_pos" value="$(eval arg('robot2_pose').split()[0])"/>
+        <arg name="robot2_y_pos" value="$(eval arg('robot2_pose').split()[1])"/>
+        <arg name="robot2_z_pos" value="$(eval arg('robot2_pose').split()[2])"/>
+        <arg name="robot2_roll" value="$(eval arg('robot2_pose').split()[3])"/>
+        <arg name="robot2_pitch" value="$(eval arg('robot2_pose').split()[4])"/>
+        <arg name="robot2_yaw" value="$(eval arg('robot2_pose').split()[5])"/>
     </include>
 
     <group  if ="$(arg activate_1)">
