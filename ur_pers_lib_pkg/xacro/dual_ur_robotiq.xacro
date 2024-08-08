@@ -92,8 +92,6 @@
 
     </xacro:macro>
 
-    </xacro:macro>
-
  
     <xacro:if value="$(arg robot1_active)">
         <xacro:ur_plus_robotiq  prefix="${robot1_prefix}" 
