@@ -3,7 +3,7 @@
         <arg name = "robot1_name"   default = "substitute1"/>
         <arg name = "robot2_name"   default = "substitute2"/>
         
-        <arg name = "finger1" default = "tactile2x6.STL"/>
+        <arg name = "finger1" default = "tactile5x5.STL"/>
         <arg name = "finger2" default = "tactile2x6.STL"/>
 
         <arg name = "robot1_x_pos" default = "1.0"/>

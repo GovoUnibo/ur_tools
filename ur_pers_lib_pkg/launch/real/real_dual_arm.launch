@@ -9,11 +9,23 @@
   <arg name="activate_left" default="true"/>
   <arg name="activate_right" default="true"/>
 
+  <arg name="robot_left_pose" default="-0.46 0 0 0 0 -1.57"/>
+  <arg name="robot_right_pose" default="0.46 0 0 0 0 1.57"/>
+  
   <arg name="robot_left_ip" default="192.168.0.102"/>
   <arg name="robot_right_ip" default="192.168.0.103"/>
 
-  <arg name="robot_left_pose" default="-0.46 0 0 0 0 -1.57"/>
-  <arg name="robot_right_pose" default="0.46 0 0 0 0 1.57"/>
+
+
+  <arg name="left_reverse_port" default="50005"/>
+  <arg name="left_script_sender_port" default="50002"/>
+  <arg name="left_trajectory_port" default="50007"/>
+  <arg name="left_script_command_port" default="50008"/>
+
+  <arg name="right_reverse_port" default="50001"/>
+  <arg name="right_script_sender_port" default="50006"/>
+  <arg name="right_trajectory_port" default="50003"/>
+  <arg name="right_script_command_port" default="50004"/>
 
 
   <include file="$(find ur_pers_lib_pkg)/launch/real/dual_external_control.launch">

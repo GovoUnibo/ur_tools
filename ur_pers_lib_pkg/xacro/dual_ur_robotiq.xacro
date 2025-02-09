@@ -34,7 +34,7 @@
     <xacro:arg name="robot2_yaw"   default="1.57"/>
     
     <xacro:arg name="finger1" default="tactile5x5.STL"/>
-    <xacro:arg name="finger2" default="tactile5x5.STL"/>
+    <xacro:arg name="finger2" default="tactile5x5.dae"/>
 
     <xacro:arg name="robot1_hw_interface" default="hardware_interface/PositionJointInterface"/>
     <xacro:arg name="robot2_hw_interface" default="hardware_interface/PositionJointInterface"/>
@@ -43,7 +43,7 @@
 
     <!-- Include URDFs -->
     <xacro:include filename="$(find ur_description)/urdf/inc/ur5e_macro.xacro"/>
-    <xacro:include filename="$(find robotiq_control)/urdf/hand_e/robotiq.xacro"/>
+    <xacro:include filename="$(find ur_pers_lib_pkg)/robotiq_urdf/hand_e/robotiq.xacro"/>
 
 
     <link name="world"/>
@@ -99,7 +99,7 @@
                                 robot_hw_interf="$(arg robot1_hw_interface)"
                                 gripper_hw_interf="$(arg gripper_hw_interface)"
                                 finger1_path="$(arg finger1)" 
-                                finger2_path="$(arg finger2)" 
+                                finger2_path="$(arg finger1)" 
                                 xyz="$(arg robot1_x_pos) $(arg robot1_y_pos) $(arg robot1_z_pos)"
                                 rpy="$(arg robot1_roll) $(arg robot1_pitch) $(arg robot1_yaw)"
 
@@ -111,7 +111,7 @@
                                 parent="world" 
                                 robot_hw_interf="$(arg robot2_hw_interface)"
                                 gripper_hw_interf="$(arg gripper_hw_interface)"
-                                finger1_path="$(arg finger1)" 
+                                finger1_path="$(arg finger2)" 
                                 finger2_path="$(arg finger2)" 
                                 xyz="$(arg robot2_x_pos) $(arg robot2_y_pos) $(arg robot2_z_pos)"
                                 rpy="$(arg robot2_roll) $(arg robot2_pitch) $(arg robot2_yaw)"

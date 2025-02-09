@@ -33,19 +33,19 @@
         <arg name="robot1_name" value="$(arg robot1_name)"/>
         <arg name="robot2_name" value="$(arg robot2_name)"/>
 
-        <arg name="robot1_x_pos" value="2.0"/>
+        <arg name="robot1_x_pos" value="0.5"/>
         <arg name="robot1_y_pos" value="0.0"/>
         <arg name="robot1_z_pos" value="0.0"/>
         <arg name="robot1_roll" value="0.0"/>
         <arg name="robot1_pitch" value="0.0"/>
-        <arg name="robot1_yaw" value="0.0"/>
+        <arg name="robot1_yaw" value="1.57"/>
 
-        <arg name="robot2_x_pos" value="-2.0"/>
+        <arg name="robot2_x_pos" value="-0.5"/>
         <arg name="robot2_y_pos" value="0.0"/>
         <arg name="robot2_z_pos" value="0.0"/>
         <arg name="robot2_roll" value="0.0"/>
         <arg name="robot2_pitch" value="0.0"/>
-        <arg name="robot2_yaw" value="0.0"/>
+        <arg name="robot2_yaw" value="-1.57"/>
         <arg name="robot1_hw_interface" value="$(arg robot1_hw_interface)"/>
         <arg name="robot2_hw_interface" value="$(arg robot2_hw_interface)"/>
 
@@ -64,15 +64,6 @@
         <arg name="robot_name" value="$(arg robot2_name)"/>
         <arg name="controller_type" value="$(arg controller_type)"/>
     </include>
-
-    <include file="$(find robotiq_control)/launch/gripper_controller_spawn.launch">
-        <arg name="gripper_name" value="$(arg robot1_name)_"/>
-    </include>
-
-    <include file="$(find robotiq_control)/launch/gripper_controller_spawn.launch">
-        <arg name="gripper_name" value="$(arg robot2_name)_"/>
-    </include>
-
 
   
     
