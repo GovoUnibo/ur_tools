@@ -26,7 +26,7 @@ int main(int argc, char** argv){
     // std::cout << "vector2: \n" << vector2 << std::endl; //ok
 
     VectorXd target1(6);
-    target1 << -0.2576, -0.6250, -1.1306,  0.0000,  2.5133,  0.0000;
+    target1 << 0.6250, 0.6250, 0.0000, 0.0000, 3.1416, 0.0000;
 
     VectorXd target2(6);
     target2 << 0.25, -0.6250, -0.1306,  0.0000,  2.5133,  0.0000;

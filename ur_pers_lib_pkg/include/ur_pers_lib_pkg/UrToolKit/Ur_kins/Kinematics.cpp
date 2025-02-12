@@ -301,6 +301,7 @@ namespace Universal_Robot{
           q1[0] = arcsin;
         q1[1] = PI - arcsin;
       }
+
       else if(fabs(B) < ZERO_THRESH) {
         double div;
         if(fabs(fabs(d4) - fabs(A)) < ZERO_THRESH)
@@ -311,9 +312,11 @@ namespace Universal_Robot{
         q1[0] = arccos;
         q1[1] = 2.0*PI - arccos;
       }
+
       else if(d4*d4 > R) {
         return num_sols;
       }
+
       else {
         double arccos = acos(d4 / sqrt(R)) ;
         double arctan = atan2(-B, A);
@@ -333,6 +336,8 @@ namespace Universal_Robot{
           q1[1] = 2.0*PI + neg;
       }
     }
+
+    // std::cout << "q1[0]: " << q1[0] << " q1[1]: " << q1[1] << std::endl;
     ////////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////// wrist 2 joint (q5) //////////////////////////////
@@ -350,6 +355,9 @@ namespace Universal_Robot{
         q5[i][1] = 2.0*PI - arccos;
       }
     }
+
+    // std::cout << "q5[0][0]: " << q5[0][0] << " q5[0][1]: " << q5[0][1] << std::endl;
+    // std::cout << "q5[1][0]: " << q5[1][0] << " q5[1][1]: " << q5[1][1] << std::endl;
     ////////////////////////////////////////////////////////////////////////////////
 
     {
@@ -381,10 +389,10 @@ namespace Universal_Robot{
           double p13y = T23 - d1 - d6*T22 + d5*(T21*c6 + T20*s6);
 
           double c3 = (p13x*p13x + p13y*p13y - a2*a2 - a3*a3) / (2.0*a2*a3);
+
           if(fabs(fabs(c3) - 1.0) < ZERO_THRESH)
             c3 = SIGN(c3);
           else if(fabs(c3) > 1.0) {
-            // TODO NO SOLUTION
             continue;
           }
           double arccos = acos(c3);
