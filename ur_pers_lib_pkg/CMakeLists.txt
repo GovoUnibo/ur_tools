@@ -125,6 +125,13 @@ target_link_libraries(4pos_estimation
   ${PROJECT_NAME}
 )
 
+add_executable(test_kins src/test_ur_kin.cpp)
+target_link_libraries(test_kins
+  ${catkin_LIBRARIES}
+  ${Boost_LIBRARIES}
+  ${Eigen3_LIBRARIES}
+  ${PROJECT_NAME}
+)
 
 # add_executable(jac_moveit src/get_moveit_jacobian.cpp
 #               )

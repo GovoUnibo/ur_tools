@@ -164,6 +164,8 @@ namespace Universal_Robot{
 
     this->num_of_sols = Kinematics::__inverse(_T, q_ik);
 
+    // std::cout << "num_of_sols: " << this->num_of_sols << std::endl;
+
     return arrayToMatrixXd(q_ik, 8, 6);
 
   }
@@ -415,6 +417,7 @@ namespace Universal_Robot{
         }
       }
     }
+    // std::cout << "num_sols: " << num_sols << std::endl;
     return num_sols;
   }
 
